@@ -1,0 +1,13 @@
+name = "INMET"
+uuid = "1fb021e9-9ab7-46c1-8a23-23f3c2783cf7"
+authors = ["Júlio Hoffimann <julio.hoffimann@gmail.com> and contributors"]
+version = "0.1.0"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
