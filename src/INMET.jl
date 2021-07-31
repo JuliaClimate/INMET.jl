@@ -75,9 +75,10 @@ function download(url)
 end
 
 function frame(data)
+  asmissing(v) = isnothing(v) ? missing : v
   vars = data |> first |> keys |> collect
   cols = map(vars) do var
-    var => [d[var] for d in data]
+    var => [asmissing(d[var]) for d in data]
   end
   DataFrame(cols)
 end
