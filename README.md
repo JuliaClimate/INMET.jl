@@ -23,37 +23,37 @@ julia> using INMET
 
 julia> INMET.stations()
 604×15 DataFrame
- Row │ TP_ESTACAO  CD_ESTACAO  SG_ESTADO  VL_ALTITUDE  CD_SITUACAO  CD_DISTRITO  CD_OSCAR        DT_FIM_OPERACAO  VL_LATITUDE   CD_WSI                   SG_ENTIDADE  DT_INICIO_OPER ⋯
-     │ String      String      String     Union…       String       String       Union…          Nothing          String        Union…                   String       String         ⋯
+ Row │ TP_ESTACAO  CD_ESTACAO  SG_ESTADO  CD_SITUACAO  CD_DISTRITO  CD_OSCAR        DT_FIM_OPERACAO  CD_WSI                   SG_ENTIDADE  DT_INICIO_OPERACAO             DC_NOME    ⋯
+     │ String      String      String     String       String       String?         Missing          String?                  String       String                         String     ⋯
 ─────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-   1 │ Automatica  A422        BA         20.93        Pane          04          0-2000-0-86765                   -17.96305555  0-76-0-2906907000000408  INMET        2008-07-20T21: ⋯
-   2 │ Automatica  A360        CE         67.15        Pane          03          0-2000-0-81755                   -3.1211111    0-76-0-2300200000000446  INMET        2009-04-21T21:
-  ⋮  │     ⋮           ⋮           ⋮           ⋮            ⋮            ⋮             ⋮                ⋮              ⋮                   ⋮                  ⋮                      ⋱
- 603 │ Automatica  A247        PA         245          Operante      02          0-2000-0-81896                   -7.110518     0-76-0-1508407000000527  INMET        2016-09-10T21:
- 604 │ Automatica  A255        MA         45.5         Operante      02          0-2000-0-81747                   -3.26916666   0-76-0-2114007000000596  INMET        2019-09-17T21:
-                                                                                                                                                        4 columns and 600 rows omitted
+   1 │ Automatica  A422        BA         Pane          04          0-2000-0-86765          missing  0-76-0-2906907000000408  INMET        2008-07-20T21:00:00.000-03:00  ABROLHOS   ⋯
+   2 │ Automatica  A360        CE         Pane          03          0-2000-0-81755          missing  0-76-0-2300200000000446  INMET        2009-04-21T21:00:00.000-03:00  ACARAU
+  ⋮  │     ⋮           ⋮           ⋮           ⋮            ⋮             ⋮                ⋮                    ⋮                  ⋮                     ⋮                         ⋮ ⋱
+ 603 │ Automatica  A247        PA         Operante      02          0-2000-0-81896          missing  0-76-0-1508407000000527  INMET        2016-09-10T21:00:00.000-03:00  XINGUARA
+ 604 │ Automatica  A255        MA         Operante      02          0-2000-0-81747          missing  0-76-0-2114007000000596  INMET        2019-09-17T21:00:00.000-03:00  ZE DOCA
+                                                                                                                                                        5 columns and 600 rows omitted
 
 julia> INMET.series(:A301, Date(2021,1,1), Date(2021,7,31))
 212×13 DataFrame
- Row │ VL_LONGITUDE  CD_ESTACAO  UMID_MED  UMID_MIN  TEMP_MIN  UF      TEMP_MED  VL_LATITUDE  CHUVA   VEL_VENTO_MED  TEMP_MAX  DC_NOME  DT_MEDICAO 
-     │ String        String      Union…    Union…    Union…    String  Union…    String       Union…  Union…         Union…    String   String     
-─────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-   1 │ -34.95916666  A301        72.5      54        24.3      PE      27.2      -8.05916666  2.8     1.7            31        RECIFE   2021-01-01
-   2 │ -34.95916666  A301        72.9      54        22.3      PE      27        -8.05916666  0       1.6            31.6      RECIFE   2021-01-02
-  ⋮  │      ⋮            ⋮          ⋮         ⋮         ⋮        ⋮        ⋮           ⋮         ⋮           ⋮           ⋮         ⋮         ⋮
- 211 │ -34.95916666  A301        86        61        19.9      PE      23.8      -8.05916666  0       1.1            28.7      RECIFE   2021-07-30
- 212 │ -34.95916666  A301                                      PE                -8.05916666  6.6                              RECIFE   2021-07-31
-                                                                                                                                   208 rows omitted
+ Row │ CD_ESTACAO  UF      VEL_VENTO_MED  DC_NOME  DT_MEDICAO  VL_LONGITUDE  VL_LATITUDE  TEMP_MIN    TEMP_MED    TEMP_MAX    UMID_MIN    UMID_MED    CHUVA      
+     │ String      String  String?        String   String      Quantity…     Quantity…    Quantity…?  Quantity…?  Quantity…?  Quantity…?  Quantity…?  Quantity…? 
+─────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+   1 │ A301        PE      1.7            RECIFE   2021-01-01     -34.9592°    -8.05917°     24.3 °C     27.2 °C     31.0 °C      54.0 %      72.5 %      2.8 mm
+   2 │ A301        PE      1.6            RECIFE   2021-01-02     -34.9592°    -8.05917°     22.3 °C     27.0 °C     31.6 °C      54.0 %      72.9 %      0.0 mm
+  ⋮  │     ⋮         ⋮           ⋮           ⋮         ⋮            ⋮             ⋮           ⋮           ⋮           ⋮           ⋮           ⋮           ⋮
+ 211 │ A301        PE      1.1            RECIFE   2021-07-30     -34.9592°    -8.05917°     19.9 °C     23.8 °C     28.7 °C      61.0 %      86.0 %      0.0 mm
+ 212 │ A301        PE      missing        RECIFE   2021-07-31     -34.9592°    -8.05917°     missing     missing     missing     missing     missing      6.6 mm
+                                                                                                                                                 208 rows omitted
 
-julia> INMET.automatic(DateTime(2021,7,1,0))
-669×24 DataFrame
- Row │ TEM_INS  PTO_MIN  CD_ESTACAO  TEM_MAX  VL_LONGITUDE  PRE_MIN  PRE_INS  RAD_GLO  UF      VEN_DIR  PTO_INS  VL_LATITUDE   UMD_MAX  HR_MEDICAO  CHUVA   VEN_RAJ  UMD_MIN  TEM_MI ⋯
-     │ Union…   Union…   String      Union…   String        Union…   Union…   Union…   String  Union…   Union…   String        Union…   String      Union…  Union…   Union…   Union… ⋯
-─────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-   1 │ 15.4     7.9      A001        15.7     -47.92583332  890.5    890.9    -3.54    DF      160      8        -15.78944444  63       0000        0       3        61       15     ⋯
-   2 │ 14.1     4        A002        15.2     -49.220222    937.3    937.7    -3.54    GO      144      4        -16.642841    52       0000        0       2.7      48       14.1
-  ⋮  │    ⋮        ⋮         ⋮          ⋮          ⋮           ⋮        ⋮        ⋮       ⋮        ⋮        ⋮          ⋮           ⋮         ⋮         ⋮        ⋮        ⋮        ⋮   ⋱
- 668 │ 12                S836        13       -53.3071                        0        PR      135               -23.7503               0000        0       3.7               11.6
- 669 │ 5.6               S837        6        -51.067112                      0        PR      0                 -26.233646             0000        0       0.8               4.6
-                                                                                                                                                        7 columns and 665 rows omitted
+julia> INMET.automatic(Date(2021,7,1))
+16056×24 DataFrame
+   Row │ CD_ESTACAO  UF      HR_MEDICAO  DC_NOME           DT_MEDICAO  VL_LONGITUDE  VL_LATITUDE  TEM_INS     TEM_MIN     TEM_MAX     UMD_INS     UMD_MIN     UMD_MAX     PRE_INS    ⋯
+       │ String      String  String      String            String      Quantity…     Quantity…    Quantity…?  Quantity…?  Quantity…?  Quantity…?  Quantity…?  Quantity…?  Quantity…? ⋯
+───────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     1 │ A001        DF      0000        BRASILIA          2021-07-01     -47.9258°    -15.7894°     15.4 °C     15.0 °C     15.7 °C      61.0 %      61.0 %      63.0 %  890.9 mbar ⋯
+     2 │ A001        DF      0100        BRASILIA          2021-07-01     -47.9258°    -15.7894°     14.7 °C     14.7 °C     15.6 °C      63.0 %      61.0 %      63.0 %  891.2 mbar
+   ⋮   │     ⋮         ⋮         ⋮              ⋮              ⋮            ⋮             ⋮           ⋮           ⋮           ⋮           ⋮           ⋮           ⋮           ⋮      ⋱
+ 16055 │ S837        PR      2200        UNIÃO DA VITÓRIA  2021-07-01     -51.0671°    -26.2336°     10.2 °C      8.9 °C     11.9 °C      85.0 %     missing     missing     missing
+ 16056 │ S837        PR      2300        UNIÃO DA VITÓRIA  2021-07-01     -51.0671°    -26.2336°      7.9 °C      7.2 °C      9.0 °C      96.0 %     missing     missing     missing
+                                                                                                                                                     10 columns and 16052 rows omitted
 ```
