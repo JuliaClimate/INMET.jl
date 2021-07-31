@@ -75,12 +75,35 @@ function download(url)
 end
 
 function frame(data)
+  # replace nothing by missing
   asmissing(v) = isnothing(v) ? missing : v
   vars = data |> first |> keys |> collect
-  cols = map(vars) do var
+  df = map(vars) do var
     var => [asmissing(d[var]) for d in data]
+  end |> DataFrame
+
+  # column names as symbols
+  ALL = propertynames(df)
+  NUM = [:VL_LONGITUDE,:VL_LATITUDE,:VL_ALTITUDE,
+         :TEM_INS,:TEM_MIN,:TEM_MAX,
+         :TEMP_MIN,:TEMP_MED,:TEMP_MAX,
+         :UMD_INS,:UMD_MIN,:UMD_MAX,
+         :UMID_MIN,:UMID_MED,:UMID_MAX,
+         :PRE_INS,:PRE_MIN,:PRE_MAX,
+         :VEN_VEL,:VEN_DIR,:VEN_RAJ,
+         :PTO_INS,:PTO_MIN,:PTO_MAX,
+         :RAD_GLO,:CHUVA]
+
+  # available numeric columns
+  ALLNUM = [V for V in NUM if V in ALL]
+
+  # parse numeric columns as floats
+  str2float(v) = ismissing(v) ? missing : parse(Float64, v)
+  for var in ALLNUM
+    transform!(df, var => ByRow(str2float) => var)
   end
-  DataFrame(cols)
+
+  select(df, Not(ALLNUM), ALLNUM)
 end
 
 end
