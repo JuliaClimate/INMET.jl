@@ -4,6 +4,8 @@ Julia API to access data from the [Instituto Nacional de Metereologia (INMET)](h
 
 For more information about the data, please check their [manual](https://portal.inmet.gov.br/manual/manual-de-uso-da-api-esta%C3%A7%C3%B5es) and [viewer](https://mapas.inmet.gov.br).
 
+![stations](docs/stations.png)
+
 ## Installation
 
 Please install the package with Julia's package manager:
