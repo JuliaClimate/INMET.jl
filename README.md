@@ -44,4 +44,16 @@ julia> INMET.series(:A301, Date(2021,1,1), Date(2021,7,31))
  211 │ -34.95916666  A301        86        61        19.9      PE      23.8      -8.05916666  0       1.1            28.7      RECIFE   2021-07-30
  212 │ -34.95916666  A301                                      PE                -8.05916666  6.6                              RECIFE   2021-07-31
                                                                                                                                    208 rows omitted
+
+julia> INMET.automatic(DateTime(2021,7,1,0))
+669×24 DataFrame
+ Row │ TEM_INS  PTO_MIN  CD_ESTACAO  TEM_MAX  VL_LONGITUDE  PRE_MIN  PRE_INS  RAD_GLO  UF      VEN_DIR  PTO_INS  VL_LATITUDE   UMD_MAX  HR_MEDICAO  CHUVA   VEN_RAJ  UMD_MIN  TEM_MI ⋯
+     │ Union…   Union…   String      Union…   String        Union…   Union…   Union…   String  Union…   Union…   String        Union…   String      Union…  Union…   Union…   Union… ⋯
+─────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+   1 │ 15.4     7.9      A001        15.7     -47.92583332  890.5    890.9    -3.54    DF      160      8        -15.78944444  63       0000        0       3        61       15     ⋯
+   2 │ 14.1     4        A002        15.2     -49.220222    937.3    937.7    -3.54    GO      144      4        -16.642841    52       0000        0       2.7      48       14.1
+  ⋮  │    ⋮        ⋮         ⋮          ⋮          ⋮           ⋮        ⋮        ⋮       ⋮        ⋮        ⋮          ⋮           ⋮         ⋮         ⋮        ⋮        ⋮        ⋮   ⋱
+ 668 │ 12                S836        13       -53.3071                        0        PR      135               -23.7503               0000        0       3.7               11.6
+ 669 │ 5.6               S837        6        -51.067112                      0        PR      0                 -26.233646             0000        0       0.8               4.6
+                                                                                                                                                        7 columns and 665 rows omitted
 ```

@@ -4,8 +4,9 @@ using HTTP
 using JSON
 using DataFrames
 using Dates
+using Printf
 
-export Date
+export Date, DateTime
 
 # -----------
 # PUBLIC API
@@ -44,6 +45,22 @@ function series(station, start, finish, freq=:day)
   from = string(start)
   to   = string(finish)
   url  = join([root, kind, from, to, station], "/")
+  url |> download |> frame
+end
+
+"""
+    automatic(time)
+
+Return data for all automatic stations on a given `time`.
+The time can be a `Date` or a `DateTime` object. In the
+latter case, minutes and seconds are ignored while the
+hour information is retained (data in hourly frequency).
+"""
+function automatic(time)
+  root = "https://apitempo.inmet.gov.br/estacao/dados"
+  date = string(Date(time))
+  hour = time isa DateTime ? (@sprintf "%02d00" Dates.hour(time)) : ""
+  url  = join([root, date, hour], "/")
   url |> download |> frame
 end
 
