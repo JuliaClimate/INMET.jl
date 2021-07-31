@@ -3,8 +3,11 @@ module INMET
 using HTTP
 using JSON
 using DataFrames
+using Unitful
 using Dates
 using Printf
+
+import Unitful: °, m, °C, percent
 
 export Date, DateTime
 
@@ -82,28 +85,47 @@ function frame(data)
     var => [asmissing(d[var]) for d in data]
   end |> DataFrame
 
-  # column names as symbols
-  ALL = propertynames(df)
+  # available columns
+  AVAIL = propertynames(df)
+
+  # numeric columns
   NUM = [:VL_LONGITUDE,:VL_LATITUDE,:VL_ALTITUDE,
          :TEM_INS,:TEM_MIN,:TEM_MAX,
          :TEMP_MIN,:TEMP_MED,:TEMP_MAX,
          :UMD_INS,:UMD_MIN,:UMD_MAX,
          :UMID_MIN,:UMID_MED,:UMID_MAX,
          :PRE_INS,:PRE_MIN,:PRE_MAX,
-         :VEN_VEL,:VEN_DIR,:VEN_RAJ,
+         :VEN_VEL,:VEN_RAJ,:VEN_DIR,
          :PTO_INS,:PTO_MIN,:PTO_MAX,
          :RAD_GLO,:CHUVA]
 
-  # available numeric columns
-  ALLNUM = [V for V in NUM if V in ALL]
+  # physical units
+  UNIT = [°,°,m,
+          °C,°C,°C,
+          °C,°C,°C,
+          percent,percent,percent,
+          percent,percent,percent,
+          u"mbar",u"mbar",u"mbar",
+          u"m/s",u"m/s",°,
+          °C,°C,°C,
+          u"W/m^2",u"mm"]
 
-  # parse numeric columns as floats
+  # dictionary mapping names to units
+  UNIT4VAR = Dict(NUM .=> UNIT)
+
+  # available numeric columns
+  NUMAVAIL = [V for V in NUM if V in AVAIL]
+
+  # parse numeric columns as floats with units
   str2float(v) = ismissing(v) ? missing : parse(Float64, v)
-  for var in ALLNUM
+  floatunit(v, u) = ismissing(v) ? missing : v*u
+  for var in NUMAVAIL
+    unitful(v) = floatunit(v, UNIT4VAR[var])
     transform!(df, var => ByRow(str2float) => var)
+    transform!(df, var => ByRow(unitful) => var)
   end
 
-  select(df, Not(ALLNUM), ALLNUM)
+  select(df, Not(NUMAVAIL), NUMAVAIL)
 end
 
 end
