@@ -14,9 +14,7 @@ Please install the package with Julia's package manager:
 
 ## Usage
 
-Please read the docstrings of the available functions.
-
-Below are a few examples of usage:
+Below are a few examples of usage. For more details, please read the docstrings.
 
 ```julia
 julia> using INMET
