@@ -52,14 +52,14 @@ function series(station, start, finish, freq=:day)
 end
 
 """
-    automatic(time)
+    on(time)
 
 Return data for all automatic stations on a given `time`.
 The time can be a `Date` or a `DateTime` object. In the
 latter case, minutes and seconds are ignored while the
 hour information is retained (data in hourly frequency).
 """
-function automatic(time)
+function on(time)
   root = "https://apitempo.inmet.gov.br/estacao/dados"
   date = string(Date(time))
   hour = time isa DateTime ? (@sprintf "%02d00" Dates.hour(time)) : ""
