@@ -45,7 +45,7 @@ julia> INMET.series(:A301, Date(2021,1,1), Date(2021,7,31))
  212 │ A301        PE      missing        RECIFE   2021-07-31     -34.9592°    -8.05917°     missing     missing     missing     missing     missing      6.6 mm
                                                                                                                                                  208 rows omitted
 
-julia> INMET.automatic(Date(2021,7,1))
+julia> INMET.on(Date(2021,7,1))
 16056×24 DataFrame
    Row │ CD_ESTACAO  UF      HR_MEDICAO  DC_NOME           DT_MEDICAO  VL_LONGITUDE  VL_LATITUDE  TEM_INS     TEM_MIN     TEM_MAX     UMD_INS     UMD_MIN     UMD_MAX     PRE_INS    ⋯
        │ String      String  String      String            String      Quantity…     Quantity…    Quantity…?  Quantity…?  Quantity…?  Quantity…?  Quantity…?  Quantity…?  Quantity…? ⋯
