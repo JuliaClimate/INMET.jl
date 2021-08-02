@@ -63,5 +63,5 @@ julia> INMET.on(Date(2021,7,1))
 [build-img]: https://img.shields.io/github/workflow/status/JuliaClimate/INMET.jl/CI?style=flat-square
 [build-url]: https://github.com/JuliaClimate/INMET.jl/actions
 
-[codecov-img]: https://codecov.io/gh/JuliaClimate/INMET.jl/branch/master/graph/badge.svg
+[codecov-img]: https://img.shields.io/codecov/c/github/JuliaClimate/INMET.jl?style=flat-square
 [codecov-url]: https://codecov.io/gh/JuliaClimate/INMET.jl
