@@ -1,5 +1,7 @@
 # INMET.jl
 
+[![][build-img]][build-url] [![][codecov-img]][codecov-url]
+
 Julia API to access data from the [Instituto Nacional de Metereologia (INMET)](https://portal.inmet.gov.br).
 
 For more information about the data, please check their [manual](https://portal.inmet.gov.br/manual/manual-de-uso-da-api-esta%C3%A7%C3%B5es) and [viewer](https://mapas.inmet.gov.br).
@@ -57,3 +59,9 @@ julia> INMET.on(Date(2021,7,1))
  16056 │ S837        PR      2300        UNIÃO DA VITÓRIA  2021-07-01     -51.0671°    -26.2336°      7.9 °C      7.2 °C      9.0 °C      96.0 %     missing     missing     missing
                                                                                                                                                      10 columns and 16052 rows omitted
 ```
+
+[build-img]: https://img.shields.io/github/workflow/status/JuliaClimate/INMET.jl/CI?style=flat-square
+[build-url]: https://github.com/JuliaClimate/INMET.jl/actions
+
+[codecov-img]: https://codecov.io/gh/JuliaClimate/INMET.jl/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/JuliaClimate/INMET.jl
