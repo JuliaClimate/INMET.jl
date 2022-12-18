@@ -1,7 +1,7 @@
 name = "INMET"
 uuid = "1fb021e9-9ab7-46c1-8a23-23f3c2783cf7"
 authors = ["Júlio Hoffimann <julio.hoffimann@gmail.com> and contributors"]
-version = "0.1.1"
+version = "1.0.0"
 
 [deps]
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
