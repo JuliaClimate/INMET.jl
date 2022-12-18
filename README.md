@@ -60,7 +60,7 @@ julia> INMET.on(Date(2021,7,1))
                                                                                                                                                      10 columns and 16052 rows omitted
 ```
 
-[build-img]: https://img.shields.io/github/workflow/status/JuliaClimate/INMET.jl/CI?style=flat-square
+[build-img]: https://img.shields.io/github/actions/workflow/status/JuliaClimate/INMET.jl/CI.yml?branch=master&style=flat-square
 [build-url]: https://github.com/JuliaClimate/INMET.jl/actions
 
 [codecov-img]: https://img.shields.io/codecov/c/github/JuliaClimate/INMET.jl?style=flat-square
