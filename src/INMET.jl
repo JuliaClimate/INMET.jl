@@ -11,6 +11,18 @@ import Unitful: °, m, °C, percent
 
 export Date, DateTime
 
+function __init__()
+  if !haskey(ENV, "INMET_TOKEN")
+    @warn """
+    The INMET API requires a token, which can be requested by sending an e-mail
+    to [cadastro.act@inmet.gov.br](mailto:cadastro.act@inmet.gov.br).
+
+    Save the token in an environment variable `INMET_TOKEN` to conclude
+    the installation.
+    """
+  end
+end
+
 # -----------
 # PUBLIC API
 # -----------
@@ -23,8 +35,8 @@ kinds of stations: `:automatic` and `:manual`.
 """
 function stations(kind=:automatic)
   @assert kind ∈ [:automatic,:manual] "invalid kind"
-  root = "https://apitempo.inmet.gov.br/estacoes/"
-  url  = root * (kind == :automatic ? "T" : "M")
+  TM = kind == :automatic ? "T" : "M"
+  url = "https://apitempo.inmet.gov.br/estacoes/$TM"
   url |> download |> frame
 end
 
@@ -43,11 +55,11 @@ For example, the date `2021-07-31` is represented with
 """
 function series(station, start, finish, freq=:day)
   @assert freq ∈ [:day,:hour] "invalid frequency"
-  root = "https://apitempo.inmet.gov.br/estacao"
   kind = freq == :day ? "diaria" : ""
   from = string(start)
   to   = string(finish)
-  url  = join([root, kind, from, to, station], "/")
+  token = ENV["INMET_TOKEN"]
+  url = "https://apitempo.inmet.gov.br/token/estacao/$kind/$from/$to/$station/$token"
   url |> download |> frame
 end
 
@@ -60,10 +72,10 @@ latter case, minutes and seconds are ignored while the
 hour information is retained (data in hourly frequency).
 """
 function on(time)
-  root = "https://apitempo.inmet.gov.br/estacao/dados"
   date = string(Date(time))
-  hour = time isa DateTime ? (@sprintf "%02d00" Dates.hour(time)) : ""
-  url  = join([root, date, hour], "/")
+  hour = time isa DateTime ? (@sprintf "%02d00" Dates.hour(time)) : "0000"
+  token = ENV["INMET_TOKEN"]
+  url = "https://apitempo.inmet.gov.br/token/estacao/dados/$date/$hour/$token"
   url |> download |> frame
 end
 
