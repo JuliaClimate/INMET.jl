@@ -11,18 +11,6 @@ import Unitful: °, m, °C, percent
 
 export Date, DateTime
 
-function __init__()
-  if !haskey(ENV, "INMET_TOKEN")
-    @warn """
-    The INMET API requires a token, which can be requested by sending an e-mail
-    to [cadastro.act@inmet.gov.br](mailto:cadastro.act@inmet.gov.br).
-
-    Save the token in an environment variable `INMET_TOKEN` to conclude
-    the installation.
-    """
-  end
-end
-
 # -----------
 # PUBLIC API
 # -----------
@@ -58,7 +46,7 @@ function series(station, start, finish, freq=:day)
   kind = freq == :day ? "diaria" : ""
   from = string(start)
   to   = string(finish)
-  token = ENV["INMET_TOKEN"]
+  token = inmettoken()
   url = "https://apitempo.inmet.gov.br/token/estacao/$kind/$from/$to/$station/$token"
   url |> download |> frame
 end
@@ -74,7 +62,7 @@ hour information is retained (data in hourly frequency).
 function on(time)
   date = string(Date(time))
   hour = time isa DateTime ? (@sprintf "%02d00" Dates.hour(time)) : "0000"
-  token = ENV["INMET_TOKEN"]
+  token = inmettoken()
   url = "https://apitempo.inmet.gov.br/token/estacao/dados/$date/$hour/$token"
   url |> download |> frame
 end
@@ -82,6 +70,18 @@ end
 # -----------------
 # HELPER FUNCTIONS
 # -----------------
+
+function inmettoken()
+  if !haskey(ENV, "INMET_TOKEN")
+    throw(ErrorException("""
+    The INMET API requires a token, which can be requested by sending an e-mail
+    to [cadastro.act@inmet.gov.br](mailto:cadastro.act@inmet.gov.br).
+
+    Save the token in an environment variable `INMET_TOKEN` to use this package.
+    """))
+  end
+  ENV["INMET_TOKEN"]
+end
 
 function download(url)
   page = HTTP.get(url)
