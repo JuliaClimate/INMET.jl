@@ -21,8 +21,7 @@ Pkg.add("INMET")
 The INMET API requires a token, which can be requested by sending an e-mail
 to [cadastro.act@inmet.gov.br](mailto:cadastro.act@inmet.gov.br).
 
-Save the token in an environment variable `INMET_TOKEN` to conclude
-the installation.
+Save the token in an environment variable `INMET_TOKEN` to use this package.
 
 ## Usage
 
